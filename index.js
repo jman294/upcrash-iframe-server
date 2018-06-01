@@ -39,7 +39,7 @@ app.get('/:id', function (req, res) {
     let ref = admin.database().ref(req.params.id)
     ref.on('value', function (snapshot) {
       let json = snapshot.val()
-      if (!json || !json.html) {
+      if (!json || (json.html === undefined || json.html === null)) {
         res.status(404).end()
         return
       }
