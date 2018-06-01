@@ -40,7 +40,7 @@ app.get('/:id', function (req, res) {
     ref.on('value', function (snapshot) {
       let json = snapshot.val()
       if (!json || (json.html === undefined || json.html === null)) {
-        res.status(404).end()
+        res.status(400).end()
         return
       }
       let filledInTemplate = template.replace('%HTML%', json.html)
