@@ -8,7 +8,7 @@ admin.initializeApp({
   credential: admin.credential.cert({
     projectId: 'upcrash-server',
     clientEmail: process.env.EMAIL,
-    privateKey: '-----BEGIN PRIVATE KEY-----\n'+process.env.KEY+'\n-----END PRIVATE KEY-----\n'
+    privateKey: JSON.parse(process.env.KEY)
   }),
   databaseURL: 'https://upcrash-server.firebaseio.com'
 })
