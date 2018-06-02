@@ -21,41 +21,43 @@ const template = `
   <title>title</title>
   </head>
   <body>
-%HTML%
+  %HTML%
   </body>
   <style>
-%STYLE%
+  %STYLE%
   </style>
   <script>
-%SCRIPT%
+  %SCRIPT%
   </script>
   </html>
-`
+  `
 
 app.use(require('body-parser').json())
 
 app.get('/:id', function (req, res) {
+  let ref
   try {
-    let ref = admin.database().ref(req.params.id)
-    ref.on('value', function (snapshot) {
-      let json = snapshot.val()
-      if (!json || (json.html === undefined || json.html === null)) {
-        res.status(400).end()
-        return
-      }
-      let filledInTemplate = template.replace('%HTML%', json.html)
-                                     .replace('%STYLE%', json.css)
-                                     .replace('%SCRIPT%', json.js)
-      res.type('html')
-      res.send(filledInTemplate)
-    }, function (err) {
-      res.status(404).end()
-      return
-    })
+    ref = admin.database().ref(req.params.id)
   } catch (e) {
-    res.status(404).end()
+    console.error('an invalid id attempted to be accessed')
+    res.status(400).end()
     return
   }
+  ref.once('value', function (snapshot) {
+    let json = snapshot.val()
+    if (!json || (json.html === undefined || json.html === null)) {
+      res.status(400).end()
+      return
+    }
+    let filledInTemplate = template.replace('%HTML%', json.html)
+      .replace('%STYLE%', json.css)
+      .replace('%SCRIPT%', json.js)
+    res.type('html')
+    res.send(filledInTemplate)
+  }, function (err) {
+    res.status(404).end()
+    return
+  })
 })
 
 // expose this express app as a webtask-compatible function
