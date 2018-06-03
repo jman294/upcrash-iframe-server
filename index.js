@@ -22,13 +22,13 @@ const template = `
   </head>
   <body>
   %HTML%
-  </body>
   <style>
   %STYLE%
   </style>
   <script>
   %SCRIPT%
   </script>
+  </body>
   </html>
   `
 
