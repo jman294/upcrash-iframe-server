@@ -16,19 +16,19 @@ admin.initializeApp({
 const template = `
   <!DOCTYPE html>
   <html>
-  <head>
-  <meta charset="UTF-8">
-  <title>title</title>
-  </head>
-  <body>
-  %HTML%
-  <style>
-  %STYLE%
-  </style>
-  <script>
-  %SCRIPT%
-  </script>
-  </body>
+    <head>
+      <meta charset="UTF-8">
+      <title>title</title>
+    </head>
+    <body>
+      %HTML%
+      <style>
+        %STYLE%
+      </style>
+      <script>
+        %SCRIPT%
+      </script>
+    </body>
   </html>
   `
 
