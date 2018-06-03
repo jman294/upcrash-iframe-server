@@ -1,8 +1,11 @@
 /* express app as a webtask */
 
+const sslRedirect = require('heroku-ssl-redirect')
 const Express = require('express')
 const app = Express()
 const admin = require('firebase-admin')
+
+app.use(sslRedirect());
 
 admin.initializeApp({
   credential: admin.credential.cert({
